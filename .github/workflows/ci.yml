@@ -44,3 +44,24 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/lotto-backend:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/lotto-backend:${{ github.sha }}
+
+      # 6. 自動更新 GitOps 倉庫嘅 Image Tag
+      - name: Update Image Tag in GitOps Repository
+        env:
+          # 使用頭先設定嘅 Token 嚟獲取 Push 權限 (請確認你的 GitHub 用戶名是否正確)
+          GITOPS_REPO: https://${{ secrets.GITOPS_TOKEN }}@github.com/tondy-reslve/k8s-helm-gitops.git
+        run: |
+          # 1. Clone 你個 GitOps 倉庫
+          git clone $GITOPS_REPO gitops-repo
+          cd gitops-repo/my-app
+          
+          # 2. 使用 sed 指令，將 values-sit.yaml 入面嘅 tag 自動替換為最新嘅 Commit Hash
+          # 留意：${{ github.sha }} 係 GitHub Actions 內置變數，代表當前代碼嘅版本號
+          sed -i "s/tag: .*/tag: ${{ github.sha }}/g" values-sit.yaml
+          
+          # 3. 提交並 Push 上去
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add values-sit.yaml
+          git commit -m "Auto-update image tag to ${{ github.sha }} for SIT environment"
+          git push origin main
