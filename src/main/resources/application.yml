@@ -26,4 +26,4 @@ spring:
           issuer-uri: http://${KEYCLOAK_HOST:localhost}:8080/realms/lotto-realm
 
 mybatis:
-  type-aliases-package: com.nlnl.lotto.entity
+  type-aliases-package: com.nlnl.lotto.domain
