@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nlnl.lotto.mapper.LottoMapper">
+
+    <insert id="saveUnionLotto" parameterType="LottoInfo">
+        insert into
+        union_lotto
+            (
+              id,
+              betting_number,
+              number_of_periods,
+              winning_numbers,
+              create_date,
+              message
+            )
+        values
+            (#{id},#{bettingNumber},null ,null ,CURRENT_TIMESTAMP,#{message})
+    </insert>
+
+    <select id="getUnionLottoById" parameterType="string" resultType="LottoInfo">
+        select
+            id id,
+            betting_number bettingNumber,
+            number_of_periods numberOfPeriods,
+            winning_numbers winningNumbers,
+            create_date createDate,
+            message message
+        from
+            union_lotto
+        where
+            id = #{id}
+    </select>
+
+
+    <update id="updateUnionLotto" parameterType="LottoInfo">
+        update
+        	union_lotto
+        set
+        	number_of_periods = #{numberOfPeriods},
+        	winning_numbers = #{winningNumbers},
+            message = #{message}
+        where
+        	id = #{id}
+    </update>
+
+    <select id="getHistoryUnionLotto" resultType="LottoInfo">
+        select
+            id id,
+            betting_number bettingNumber,
+            number_of_periods numberOfPeriods,
+            winning_numbers winningNumbers,
+            create_date createDate,
+            message message
+        from
+            union_lotto
+        order by id desc
+        limit 3
+    </select>
+
+    <insert id="saveSuperLotto" parameterType="LottoInfo">
+        insert into
+        super_lotto
+            (
+              id,
+              betting_number,
+              number_of_periods,
+              winning_numbers,
+              create_date,
+              message
+            )
+        values
+            (#{id},#{bettingNumber},null ,null ,CURRENT_TIMESTAMP,#{message})
+    </insert>
+
+    <select id="getSuperLottoById" parameterType="string" resultType="LottoInfo">
+        select
+            id id,
+            betting_number bettingNumber,
+            number_of_periods numberOfPeriods,
+            winning_numbers winningNumbers,
+            create_date createDate,
+            message message
+        from
+            super_lotto
+        where
+            id = #{id}
+    </select>
+
+
+    <update id="updateSuperLotto" parameterType="LottoInfo">
+        update
+        	super_lotto
+        set
+        	number_of_periods = #{numberOfPeriods},
+        	winning_numbers = #{winningNumbers},
+            message = #{message}
+        where
+        	id = #{id}
+    </update>
+
+    <select id="getHistorySuperLotto" resultType="LottoInfo">
+        select
+            id id,
+            betting_number bettingNumber,
+            number_of_periods numberOfPeriods,
+            winning_numbers winningNumbers,
+            create_date createDate,
+            message message
+        from
+            super_lotto
+        order by id desc
+        limit 3
+    </select>
+
+    <select id="getMarkSixById" parameterType="string" resultType="LottoInfo">
+        select
+            id id,
+            betting_number bettingNumber,
+            number_of_periods numberOfPeriods,
+            winning_numbers winningNumbers,
+            create_date createDate,
+            message message
+        from
+            mark_six
+        where
+            id = #{id}
+    </select>
+
+    <select id="getHistoryMarkSix" resultType="LottoInfo">
+        select
+            id id,
+            betting_number bettingNumber,
+            number_of_periods numberOfPeriods,
+            winning_numbers winningNumbers,
+            create_date createDate,
+            message message
+        from
+            mark_six
+        order by id desc
+        limit 3
+    </select>
+
+    <insert id="saveMarkSix" parameterType="LottoInfo">
+        insert into
+            mark_six
+        (
+            id,
+            betting_number,
+            number_of_periods,
+            winning_numbers,
+            create_date,
+            message
+        )
+        values
+            (#{id},#{bettingNumber},null ,null ,CURRENT_TIMESTAMP,#{message})
+    </insert>
+
+    <update id="updateMarkSix" parameterType="LottoInfo">
+        update
+            mark_six
+        set
+            number_of_periods = #{numberOfPeriods},
+            winning_numbers = #{winningNumbers},
+            message = #{message}
+        where
+            id = #{id}
+    </update>
+
+    <select id="getUnionLottoFirstPrize" resultType="LottoInfo">
+        select
+            betting_number bettingNumber
+        from
+            union_lotto
+        order by
+            id desc
+            limit 1
+    </select>
+
+    <select id="getSuperLottoFirstPrize" resultType="LottoInfo">
+        select
+            betting_number bettingNumber
+        from
+            super_lotto
+        order by
+            id desc
+            limit 1
+    </select>
+
+    <select id="getMarkSixFirstPrize" resultType="LottoInfo">
+        select
+            betting_number bettingNumber
+        from
+            mark_six
+        order by
+            id desc
+            limit 1
+    </select>
+</mapper>
