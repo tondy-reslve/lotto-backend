@@ -22,7 +22,7 @@ public class SecurityConfig {
                 .build();
         String jwkSetUri = issuerUri + "/protocol/openid-connect/certs";
 
-        return NimbusJwtDecoder.withIssuerLocation(jwkSetUri)
+        return NimbusJwtDecoder.withJwkSetUri(jwkSetUri)
                 .restOperations(restTemplate)
                 .build();
     }
