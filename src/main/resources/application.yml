@@ -2,6 +2,12 @@ server:
   port: 1688
 
 spring:
+  ssl:
+    bundle:
+      pem:
+        keycloak-bundle:
+          truststore:
+            certificate: "file:/etc/ssl/certs/k8s-local-ca.crt"
   config:
     import: optional:file:/vault/secrets/db-config.properties
 
