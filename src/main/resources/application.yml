@@ -27,7 +27,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: https://keycloak.my-app-sit.svc.cluster.local:30443/realms/lotto-realm
+          issuer-uri: https://${KEYCLOAK_HOST:localhost:8443}/realms/lotto-realm
 
 mybatis:
   type-aliases-package: com.nlnl.lotto.domain
