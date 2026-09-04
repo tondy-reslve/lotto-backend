@@ -20,6 +20,7 @@ public class SecurityConfig {
 
     @Bean
     public JwtDecoder jwtDecoder(SslBundles sslBundles) {
+
         SSLContext sslContext = sslBundles.getBundle("keycloak-bundle").createSslContext();
         
         HttpClient httpClient = HttpClient.newBuilder()
@@ -29,7 +30,6 @@ public class SecurityConfig {
         RestTemplate restTemplate = new RestTemplate(new JdkClientHttpRequestFactory(httpClient));
         
         String jwkSetUri = issuerUri + "/protocol/openid-connect/certs";
-        
         return NimbusJwtDecoder.withJwkSetUri(jwkSetUri)
                 .restOperations(restTemplate)
                 .build();
